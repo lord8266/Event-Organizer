@@ -1,0 +1,16 @@
+.tab-menu {
+    background-color: rgba(248, 10, 10, 0.425);
+    box-shadow: 0.2em 0.2em 0.2em 0.2em rgba(88, 37, 37, 0.247);
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.tab-item {
+    border: 0.2em solid rgba(165, 42, 42, 0.205);
+    margin: 2px;
+    
+}
+
+.content {
+    margin-right: 10em;
+}

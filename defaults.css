@@ -1,0 +1,43 @@
+.navbar-default {
+    background-color: rgba(255, 0, 64, 0.336);
+    border-color: rgba(214, 15, 81, 0.404);
+}
+.logo {
+    width: 1.5em;
+}
+.hover:hover {
+    background-color: rgba(94, 9, 230, 0.219)
+}
+
+.aa {
+    border: 0.2em solid rgba(160, 5, 5, 0.397);
+    margin: 1em;
+   
+}
+
+
+.container-fluid {
+    padding: 3em;
+    
+}
+
+.signup {
+    width: 100%;
+}
+
+.front {
+    display: flex;
+    justify-content: center;
+}
+
+td {
+    text-align: left;
+}
+
+.search {
+    padding-left: 4.5em;
+}
+
+.toast-body {
+    font-size: 1.5em;
+}
