@@ -38,7 +38,7 @@ Then in the same shell.
 ```
 CREATE DATABASE event_organizer;
 CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON event_orgaizer.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON event_organizer.* TO 'username'@'localhost' IDENTIFIED BY 'password';
 ```
 Make sure you replace 'newuser' and 'password'.  
 
