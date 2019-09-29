@@ -16,7 +16,7 @@
             <li class="nav-item">
                 <a href="index.html" class="navbar-item"> 
                 <table class="">
-                    <tr> <td><img src="external/icon_a.png" class="navbar-brand logo" alt=""></td>
+                    <tr> <td><img src="images/icon_a.png" class="navbar-brand logo" alt=""></td>
                         <td><span href="" class="navbar-brand text-dark">Organiser</span></td>
                     </tr>
                 </table>
