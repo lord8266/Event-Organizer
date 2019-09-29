@@ -52,7 +52,7 @@ To login to 'user' on mysql shell
 mysql -u 'user' -p<password here>
 ```
 Do not leave space between p and password.  
-If that isnt intutive then you can execute 
+If that isnt intuitive then you can execute 
 ```
 mysql -u 'user' -p
 ```
