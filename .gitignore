@@ -1,1 +1,5 @@
 external
+logs
+*.sh
+*.conf
+server/dbconfig.php

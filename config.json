@@ -1,0 +1,24 @@
+{
+	"name": "event_organizer",
+	"db": "event_organizer",
+	"tables": {
+		"users": "CREATE TABLE users(username VARCHAR(50) NOT NULL,email VARCHAR(50) NOT NULL PRIMARY KEY,password VARCHAR(50) NOT NULL);"
+	},
+	"restart": "sudo service apache2 restart;sudo service mysql restart",
+	"hosts": [
+		"<VirtualHost *:80>",
+		"    ServerAdmin webmaster@localhost ",
+		"    DocumentRoot $1",
+		"    <Directory \"$1\">",
+		"        Allow from all",
+		"        Allowoverride all",
+		"        Order allow,deny",
+		"        Require all granted",
+		"    </Directory>",
+		"    ErrorLog $2/error.log",
+		"    CustomLog $2/access.log combined",
+		"</VirtualHost>"
+    ],
+    "copy":"sudo cp $1 /etc/apache2/sites-available/",
+    "enable":"sudo a2dissite 000-default.conf;sudo a2ensite $1"
+}
