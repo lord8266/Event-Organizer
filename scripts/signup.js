@@ -46,8 +46,8 @@ $('#signup').click((a,b) => {
         $.post('server/signup.php',{username:username.val(),email:email.val(),password:password.val()},(data,status) => { 
             console.log(data)
             if (data=='SUCCESS') {
-                // Simulate an HTTP redirect:
-                window.location.replace("success.html");
+        
+                window.location.replace("success.php");
             }
             else {
                 toast(error_template('Email Already Exists on this site?'))
