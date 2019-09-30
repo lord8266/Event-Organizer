@@ -17,6 +17,7 @@
 		"    </Directory>",
 		"    ErrorLog $2/error.log",
 		"    CustomLog $2/access.log combined",
+		"    php_flag display_errors on",
 		"</VirtualHost>"
     ],
     "copy":"sudo cp $1 /etc/apache2/sites-available/",
