@@ -20,5 +20,6 @@
 		"</VirtualHost>"
     ],
     "copy":"sudo cp $1 /etc/apache2/sites-available/",
-    "enable":"sudo a2dissite 000-default.conf;sudo a2ensite $1"
+	"enable":"sudo a2dissite 000-default.conf;sudo a2ensite $1",
+	"dir":"www"
 }

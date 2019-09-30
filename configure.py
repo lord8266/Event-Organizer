@@ -12,7 +12,7 @@ if os.geteuid() != 0: #check root
 
 def update_conf(p,data):
     s = "\n".join(data['hosts'])
-    s = s.replace("$1",os.getcwd() ).replace("$2",os.path.join(os.getcwd(),"logs"))
+    s = s.replace("$1",os.path.join(os.getcwd(),data['dir']) ).replace("$2",os.path.join(os.getcwd(),"logs"))
     os.makedirs("logs",exist_ok=True)
     open(f"{data['name']}.conf",'w').write(s)
 
@@ -23,7 +23,7 @@ def update_conf(p,data):
     $db_username = '{p.username}';
     $db_password = '{p.password}';
     ?>"""
-    open('server/dbconfig.php','w').write(php_config)
+    open(os.path.join(data['dir'],'server/dbconfig.php'),'w').write(php_config)
 
 
 
@@ -37,7 +37,7 @@ def delete_all_tables(cursor):
         else:
             print("DROP TABLE",r[0])
             cursor.execute(f"DROP TABLE {r[0]}")
-    
+
 def create(p,data):
     username = p.username
     password =p.password
@@ -48,6 +48,7 @@ def create(p,data):
     for t,cmd in data['tables'].items():
         print(f"CREATE TABLE {t}")
         c.execute(cmd)
+    
     update_conf(p,data)
     os.popen(data['copy'].replace("$1",os.path.join(os.getcwd(),f"{data['name']}.conf" ) ))
     os.popen(data['enable'].replace("$1",f"{data['name']}.conf" ) )
@@ -55,8 +56,10 @@ def create(p,data):
 
 data = json.loads(open("config.json").read())
 parser = argparse.ArgumentParser(description="useful thing")
+
 parser.add_argument("-u", "--username", help="Your Username")
 parser.add_argument("-p", "--password", help="Your Password")
-parser.add_argument('-c','--create', action='store_const', const=create, dest='cmd',default=create)
+parser.add_argument('--create', action='store_const', const=create, dest='cmd',default=create)
+parser.add_argument('--update', action='store_const', const=create, dest='cmd',default=create)
 p=parser.parse_args(sys.argv[1:])
 p.cmd(p,data)

@@ -2,4 +2,4 @@ external
 logs
 *.sh
 *.conf
-server/dbconfig.php
+www/server/dbconfig.php
