@@ -2,7 +2,7 @@
 	"name": "event_organizer",
 	"db": "event_organizer",
 	"tables": {
-		"users": "CREATE TABLE users(username VARCHAR(50) NOT NULL,email VARCHAR(50) NOT NULL PRIMARY KEY,password VARCHAR(50) NOT NULL);"
+		"users": "CREATE TABLE users(id VARCHAR(300) PRIMARY KEY,username VARCHAR(50) NOT NULL,email VARCHAR(50) NOT NULL UNIQUE,password VARCHAR(50) NOT NULL);"
 	},
 	"restart": "sudo service apache2 restart;sudo service mysql restart",
 	"hosts": [
@@ -10,6 +10,7 @@
 		"    ServerAdmin webmaster@localhost ",
 		"    DocumentRoot $1",
 		"    <Directory \"$1\">",
+		"        Options +Indexes",
 		"        Allow from all",
 		"        Allowoverride all",
 		"        Order allow,deny",
