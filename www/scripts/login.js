@@ -47,8 +47,8 @@ $('#login').click(function() {
     }
     else {
     if (validate_email(email)) {
-        $.post('server/login.php',{email:email,password:password},function(data,status) {
-            
+        $.post('server/api_layer.php',{kind:"login",email:email,password:password},function(data,status) {
+            console.log(data);
             if (data==0) {
                 toast('Email Not Found');
                 clear_form(1,1);
@@ -58,13 +58,12 @@ $('#login').click(function() {
                 clear_form(0,1);
             }
             else {
-                window.location.replace('user_page.php')
+                window.location = 'user_page.php';
             }
         })
     }
     else {
         toast('Invalid Email');
-        clear_form(1,1);
     }
     
 } } )

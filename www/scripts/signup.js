@@ -4,6 +4,7 @@ console.log("THIS PIECE OF shit ")
 
 function validate_email(s) {
     var p = /\w+\@\w+\.\w+/;
+
     return s.match(p)!=null;
 }
 
@@ -43,11 +44,10 @@ $('#signup').click((a,b) => {
     }
     if (b) {
     if (validate_email(email.val())) {
-        $.post('server/signup.php',{username:username.val(),email:email.val(),password:password.val()},(data,status) => { 
+        $.post('server/api_layer.php',{kind:"signup",username:username.val(),email:email.val(),password:password.val()},(data,status) => { 
             console.log(data)
-            if (data=='SUCCESS') {
-        
-                window.location.replace("success.php");
+            if (data=='1') {
+                window.location.href = "user_page.php";
             }
             else {
                 toast(error_template('Email Already Exists on this site?'))
