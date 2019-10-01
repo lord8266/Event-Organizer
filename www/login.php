@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-default ">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="index.html" class="navbar-item"> 
+                    <a href="index.php" class="navbar-item"> 
                     <table class="">
                         <tr> <td><img src="images/icon_a.png" class="navbar-brand logo" alt=""></td>
                             <td><span href="" class="navbar-brand text-dark">Organiser</span></td>

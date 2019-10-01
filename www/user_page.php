@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start(); 
+if (!isset($_SESSION['id'])) {
+    header("Location: index.php");
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +19,7 @@
     <nav class="navbar navbar-expand-lg navbar-default ">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a href="index.html" class="navbar-item"> 
+                <a href="index.php" class="navbar-item"> 
                 <table class="">
                     <tr> <td><img src="images/icon_a.png" class="navbar-brand logo" alt=""></td>
                         <td><span href="" class="navbar-brand text-dark">Organiser</span></td>
@@ -31,7 +36,10 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <strong class="text-dark"> <?php echo $_SESSION['username']?> </strong>
+                <button class="btn btn-dark" id="logout"> Logout</button>
+            </li>
+            <li class="nav-item">
+                <a class="text-dark nav-link" href=""> <?php echo $_SESSION['username'] ?> </a>
             </li>
         </ul>
     </nav>
@@ -82,5 +90,13 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $('#logout').click(()=> {
+            $.post('server/api_layer.php',{kind:"logout"},(data,status) => {
+                window.location.href = "index.php"
+            });
+            
+        })
+    </script>
 </body>
 </html>
