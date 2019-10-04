@@ -4,3 +4,4 @@ logs
 *.conf
 www/server/test.php
 www/server/dbconfig.php
+third-party

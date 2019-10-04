@@ -1,16 +1,18 @@
-.tab-menu {
-    background-color: rgba(248, 10, 10, 0.425);
-    box-shadow: 0.2em 0.2em 0.2em 0.2em rgba(88, 37, 37, 0.247);
-    padding-right: 0;
-    padding-left: 0;
+.logo {
+   padding-left: 2em;
+   font: 1.5em bold;
+   color: rgba(247, 242, 242, 0.685);
 }
 
-.tab-item {
-    border: 0.2em solid rgba(165, 42, 42, 0.205);
-    margin: 2px;
-    
+.nav-item {
+   font-size: 3em;
 }
-
-.content {
-    margin-right: 10em;
-}
+.dropdown-content {
+   top: 100% !important;
+ }
+ nav {
+    background-color: rgb(34, 29, 29)
+ }
+ #logout {
+    color: rgb(134, 124, 124)
+ }
