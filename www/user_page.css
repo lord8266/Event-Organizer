@@ -1,18 +1,14 @@
-.logo {
-   padding-left: 2em;
-   font: 1.5em bold;
-   color: rgba(247, 242, 242, 0.685);
-}
 
-.nav-item {
-   font-size: 3em;
-}
-.dropdown-content {
-   top: 100% !important;
+
+ #search {
+    margin-right: 7em;
+    padding-top: 5rem;
  }
- nav {
-    background-color: rgb(34, 29, 29)
- }
- #logout {
-    color: rgb(134, 124, 124)
+
+ #search_button {
+    top: 0.38em;
+    margin-left: 2em;
+    background-color:  rgb(34, 29, 29);
+    width: 15em;
+    border-radius: 1em;
  }

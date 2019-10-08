@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/lord8266/Environments/global/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}

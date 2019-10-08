@@ -12,7 +12,9 @@ if (!isset($_SESSION['id'])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    <link rel="stylesheet" href="user_page.css">
+   <link rel="stylesheet" href="navbar.css">
    <title>Organise</title>
 </head>
 
@@ -26,15 +28,23 @@ if (!isset($_SESSION['id'])) {
             <li>
                <a class='dropdown-trigger' href='#' data-target='dropdown1'><?php echo $_SESSION['username'] ?></a>
                <ul id='dropdown1' class='dropdown-content'>
-                  <li><a id="logout">Logout</a></li>
-                  <li><a id="logout">Logout</a></li>
-                  <li><a id="logout">Logout</a></li>
+                  <li><a href="create_event.php">Create Event</a></li>
+                  <li class="divider"> </li>
                   <li><a id="logout">Logout</a></li>
                </ul>
             </li>
          </ul>
       </div>
    </nav>
+   <div class="container">
+      <div class="row" id="search">
+         <div class="col s10"> <input type="text" id="search_text"></div>
+         <div class="col s2"> 
+            <a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>Search Events</a>
+         </div>
+      </div>
+   </div>
+
 </body>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

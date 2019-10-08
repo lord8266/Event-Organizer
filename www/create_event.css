@@ -1,0 +1,30 @@
+.tabs {
+    margin-top: 5em;
+    margin-bottom: 5em;
+    /* margin-left: 11em; */
+}
+
+#front {
+    margin:auto;
+}
+
+.profile {
+    border:0.26em solid rgba(0, 0, 0, 0.664);
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+
+.tag {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+
+}
+
+body {
+    background-image: url("images/test.svg");
+    z-index: -1;
+}

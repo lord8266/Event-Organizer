@@ -1,0 +1,19 @@
+.logo {
+    padding-left: 2em;
+    font: 1.5em bold;
+    color: rgba(247, 242, 242, 0.685);
+ }
+ 
+ .nav-item {
+    font-size: 3em;
+ }
+ .dropdown-content {
+    width: 10em !important;
+    top: 100% !important;
+  }
+  nav {
+     /* background-color: rgb(34, 29, 29) */
+  }
+  #logout {
+     color: rgb(134, 124, 124)
+  }
