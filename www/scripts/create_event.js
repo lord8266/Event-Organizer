@@ -48,23 +48,23 @@ function on_close(t) {
             date_picker_end.setInputValue("")
             M.toast( {html:"Select Start Date"} );
             date_picker_end.open()
-     : Nov 11,
-     : Nov 11,
-    }: Nov 11,
+        }
+       
+    }
 }
 
-funct: Nov 11,
+function on_open(t) {
   
     
 }
 
-funct: Nov 11,
-    i: Nov 11,
-     : Nov 11,
-    }: Nov 11,
-    e: Nov 11,
-     : Nov 11,
-    }: Nov 11,
+function price_show() {
+    if ($('#check_paid').prop('checked')) {
+        $('#price_div').show()
+    }
+    else {
+        $('#price_div').hide()
+    }
 }
 function rem_tag(e) { 
     $(e.currentTarget).remove()
