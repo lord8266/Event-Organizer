@@ -14,11 +14,12 @@ $('document').ready(
         tabs = M.Tabs.init( $('.tabs')[0]) ;
         login_dropdown = M.Dropdown.init( $('.dropdown-trigger')[0]) ;
         collapisble_front = M.Collapsible.init( $('#collapsible_front')[0]) ;
-        collapsible_tal = M.Collapsible.init( $('#collapsible_tal')[0]) ;
-        date_picker_start =M.Datepicker.init( $('#date_start')[0],{format: "mm/dd/yyyy",minDate: new Date(),onClose:()=>{on_close('s')}  }) ;
-        date_picker_end = M.Datepicker.init( $('#date_end')[0],{format: "mm/dd/yyyy",minDate: new Date(),onClose:()=>{on_close('e')} ,onOpen:()=>{on_open('e')} }) ;
-        time_picker_start= M.Timepicker.init( $('#time_start')[0] );
-        time_picker_start = M.Timepicker.init( $('#time_end')[0] );
+        collapsible_tal = M.Collapsible.init( $('#collapsible_tal')[0],{accordion:false}) ;
+        date_picker_start =M.Datepicker.init( $('#date_start')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('s','d')}  }) ;
+        date_picker_end = M.Datepicker.init( $('#date_end')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('e','d')} ,onOpen:()=>{on_open('e')} }) ;
+
+        time_picker_start= M.Timepicker.init( $('#time_start')[0],{twelveHour:true,onCloseEnd:()=>{on_close('s','t')}});
+        time_picker_end = M.Timepicker.init( $('#time_end')[0],{twelveHour:true,onCloseEnd:()=>{on_close('e','t')}} );
         $('#modal_add_tags').modal();
         $('#tags').data('count',0);
         $('#tags').data('max',4);
@@ -28,33 +29,135 @@ $('document').ready(
 
 );
 
-function on_close(t) {
+
+$('#logout').click(() => {
+    $.post('server/api_layer.php', {
+        kind: "logout"
+    }, (data, status) => {
+        window.location.href = "index.php"
+    });
+})
+function get_time(s) {
+    
+    h = s.hours
+    if (s.amOrPm=='PM') {
+        h+=12
+    }
+    m=  s.minutes
+    
+    return `${("00"+h).slice(-2)}:${("00"+m).slice(-2)}`
+}
+
+function get_moment(s) {
+    console.log(s)
+    return moment(s,"DD MMM, YYYY HH:mm")
+}
+
+function reset_end_pickers() {
+    date_picker_end.setDate("")
+    date_picker_end.setInputValue("")
+    $("#time_end").val("")
+}
+
+function on_close(t,f) {
     var s0 = date_picker_start.toString()
     var s1 = date_picker_end.toString()
+    var s2 = time_picker_start
+    var s3 = time_picker_end
     if (t=='s') {
-        if (s1) {
-            if (new Date(s0) >new Date(s1)) {
+        if (s0 && s2.time && s1 && s3.time) {
+            let m0 = get_moment(s0.toString()+" " + get_time(s2))
+            console.log(m0);
+            let m1  = get_moment(s1.toString()+" " + get_time(s3))
+            if (m0.isAfter(m1)) {
                 date_picker_end.setDate("")
                 date_picker_end.setInputValue("")
             }
-        
         }
         date_picker_end.options.minDate = date_picker_start.date
     }
+   
     else if (t=='e') {
 
-        if (!s0) {
-            date_picker_end.setDate("")
-            date_picker_end.setInputValue("")
-            M.toast( {html:"Select Start Date"} );
+        if (!(s0 && s2.time)) {
+            reset_end_pickers()
+            M.toast( {html:"Select Start Date and Time"} );
             date_picker_end.open()
         }
+        if (s3.time && s1 && s2.time && s0) {
+            console.log("here")
+            let m0 = get_moment(s0.toString()+" " + get_time(s2))
+            let m1  = get_moment(s1.toString()+" " + get_time(s3))
+            if (m0.isAfter(m1)) {
+                if (f==1) {
+                    $("#time_end").val("")
+                }
+                else {
+                    date_picker_end.setDate("")
+                    date_picker_end.setInputValue("")
+                }
+                M.toast({html:"Invalid End"})
+            }
+        }
        
+    }
+    else if (t=='s_t') {
+        s2 = get_time(time_picker_start);
+        s3 = get_time(time_picker_end);
+        if (s3) {
+            if (s2.isAfter(s3)) {  
+            }
+        }
     }
 }
 
 function on_open(t) {
   
+    
+}
+
+function validate_time() {
+    var s0 = date_picker_start.toString()
+    var s1 = date_picker_end.toString()
+    var s2 = time_picker_start
+    var s3 = time_picker_end
+    let m0 = get_moment(s0.toString()+" " + get_time(s2))
+    let m1  = get_moment(s1.toString()+" " + get_time(s3))
+    return m0.isBefore(m1)
+}
+
+function serialize_data() {
+    var s0 = date_picker_start.toString()
+    var s1 = date_picker_end.toString()
+    var s2 = time_picker_start
+    var s3 = time_picker_end
+    let data = {"start":get_moment(s0.toString()+" " + get_time(s2)).toString(),
+                "end":get_moment(s1.toString()+" " + get_time(s3)).toString(),
+                "name":$("#event_name").val(),
+                "anyone":$("#check_paid").prop("checked"),
+                "price":$("#price").val(),
+                "tags":serialize_tags(),
+}
+}
+function validate_price(s) {
+    exp = /\d+/
+    s.mat
+}
+function validate_input() {
+    if (validate_time()) {
+        M.toast( {html:"Invalid Time Range"})
+        tabs.select("tal")
+    }
+    else if ($("#event_name").val()=="") {
+        M.toast({html:"Invalid Event Name"})
+        tabs.select("front")
+    }
+    else if ($("#check_paid").prop("checked") && (!$("#price").val().match("^/\d+/$")) ) {
+        M.toast({html:"Invalid Price"})
+    }
+    else {
+        // serialize_data()
+    }
     
 }
 
@@ -97,5 +200,6 @@ function add_tag(e) {
     
 }
 $('#add_tag').click(add_tag)
+$("#create_event").click(validate_input)
 
 

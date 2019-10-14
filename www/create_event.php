@@ -51,7 +51,7 @@ if (!isset($_SESSION['id'])) {
             <div class="col s12">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input p id="event_name" type="text" class="validate">
+                        <input  id="event_name" type="text" class="validate">
                         <label for="event_name">Event Name</label>
                     </div>
                     <div class="offset-s2 col s3">
@@ -89,26 +89,27 @@ if (!isset($_SESSION['id'])) {
             <div class="col s12">
                 <ul class="collapsible" id="collapsible_tal">
                     <li>
-                        <div class="collapsible-header"> <i class="material-icons">add_a_photo</i> Choose Date </div>
+                        <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose Start </div>
                         <div class="collapsible-body">
                             <label for="date_start">Start Date</label>
                             <input type="text" class="datepicker" id="date_start">
-                            <label for="date_start">End Date</label>
-                            <input type="text" class="datepicker" id="date_end">
+                            <label for="time_start">Start Time</label>
+                            <input type="text" class="timepicker" id="time_start">
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"> <i class="material-icons">add_a_photo</i> Choose Time </div>
+                        <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose End </div>
                         <div class="collapsible-body">
                             <p>Choose Time If Applicable</p>
-                            <label for="date_start">Start Time</label>
-                            <input type="text" class="timepicker" id="time_start">
-                            <label for="date_start">End Time</label>
+                            
+                            <label for="date_end">End Date</label>
+                            <input type="text" class="datepicker" id="date_end">
+                            <label for="time_end">End Time</label>
                             <input type="text" class="timepicker" id="time_end">
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"> <i class="material-icons">add_a_photo</i> Location</div>
+                        <div class="collapsible-header"> <i class="material-icons">add_location</i> Location</div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s9 input-field">
@@ -167,20 +168,15 @@ if (!isset($_SESSION['id'])) {
                         <label for="price">
                             Price
                         </label>
-                        <input type="text" name="" id="price">
+                        <input type="number" name="" id="price">
                     </div>
                 </p>
-                <p>
-                    <label>
-                        <input type="checkbox" id="check_join" />
-                        <span class="black-text ">Anyone Can Join</span>
-                    </label>
-                </p>
+                
             </div>
         </div>
         <div class="row">
             <div class="col s8">
-                <a href="#" class="btn btn-large "> Create Event!</a>
+                <a href="#" class="btn btn-large " id="create_event"> Create Event!</a>
             </div>
         </div>
     </div>
@@ -190,6 +186,7 @@ if (!isset($_SESSION['id'])) {
 </body>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="scripts/moment.js"></script>
 <script src="scripts/create_event.js"></script>
 
 </html>
