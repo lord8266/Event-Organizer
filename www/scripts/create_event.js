@@ -25,6 +25,7 @@ $('document').ready(
         $('#tags').data('max',4);
         price_show()
         $('#check_paid').on('change',price_show)
+        $("#description_text").val("")
     }
 
 );
@@ -50,7 +51,8 @@ function get_time(s) {
 
 function get_moment(s) {
     console.log(s)
-    return moment(s,"DD MMM, YYYY HH:mm")
+    m = moment(s,"DD MMM, YYYY HH:mm")
+    return m
 }
 
 function reset_end_pickers() {
@@ -134,17 +136,26 @@ function serialize_data() {
     let data = {"start":get_moment(s0.toString()+" " + get_time(s2)).toString(),
                 "end":get_moment(s1.toString()+" " + get_time(s3)).toString(),
                 "name":$("#event_name").val(),
-                "anyone":$("#check_paid").prop("checked"),
+                "paid":$("#check_paid").prop("checked"),
                 "price":$("#price").val(),
                 "tags":serialize_tags(),
+                "description":$("#description_text").val()}
+    return data
 }
-}
+
 function validate_price(s) {
     exp = /\d+/
     s.mat
 }
+function serialize_tags() {
+    t = []
+    $("#tags").find('div.chip').each((e,a)=>{t.push($(a).data("value")) })
+    return t.join(",")
+}
+
 function validate_input() {
-    if (validate_time()) {
+    serialize_tags()
+    if (!validate_time()) {
         M.toast( {html:"Invalid Time Range"})
         tabs.select("tal")
     }
@@ -152,11 +163,11 @@ function validate_input() {
         M.toast({html:"Invalid Event Name"})
         tabs.select("front")
     }
-    else if ($("#check_paid").prop("checked") && (!$("#price").val().match("^/\d+/$")) ) {
+    else if ($("#check_paid").prop("checked") && (!$("#price").val().match(/^\d+$/)) ) {
         M.toast({html:"Invalid Price"})
     }
     else {
-        // serialize_data()
+        console.log(serialize_data())
     }
     
 }
@@ -183,6 +194,7 @@ function add_tag(e) {
         if ($('#tag_name').val().length<15 && $('#tag_name').val().length>=3 ) {
             $(`<div></div>`, {
                 "class": "chip waves-effect waves-light",
+                "data-value":$('#tag_name').val(),
                 click: rem_tag,
                 html:`<i class="close material-icons">close</i> ${$('#tag_name').val()}`
               }).insertBefore( "#add_tag_button" );
