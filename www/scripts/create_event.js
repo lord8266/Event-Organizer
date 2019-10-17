@@ -136,14 +136,14 @@ function serialize_data() {
     let data = {"start":get_moment(s0.toString()+" " + get_time(s2)).format(),
                 "end":get_moment(s1.toString()+" " + get_time(s3)).format(),
                 "name":$("#event_name").val(),
-                "paid":$("#check_paid").prop("checked"),
+                "paid":$("#check_paid").prop("checked") ?1:0,
                 "price":$("#price").val(),
                 "tags":serialize_tags(),
                 "description":$("#description_text").val()}
-    return data
+    return JSON.stringify(data);
 }
 
-function send_data() {
+function send_data(data) {
     
 }
 
@@ -158,21 +158,23 @@ function serialize_tags() {
 }
 
 function validate_input() {
-    serialize_tags()
+    var ret = 1;
     if (!validate_time()) {
         M.toast( {html:"Invalid Time Range"})
         tabs.select("tal")
+        ret =0;
     }
     else if ($("#event_name").val()=="") {
         M.toast({html:"Invalid Event Name"})
         tabs.select("front")
+        ret =0;
     }
     else if ($("#check_paid").prop("checked") && (!$("#price").val().match(/^\d+$/)) ) {
         M.toast({html:"Invalid Price"})
+        ret =0;
     }
-    else {
-        console.log(serialize_data())
-    }
+    return ret;
+    
     
 }
 
@@ -216,6 +218,19 @@ function add_tag(e) {
     
 }
 $('#add_tag').click(add_tag)
-$("#create_event").click(validate_input)
+
+$("#create_event").click(function() {
+    if (validate_input()) {
+        d = serialize_data();
+        $.ajax({
+            url: 'server/api_layer.php', 
+            type: "POST",
+            contentType: "application/json",
+            data: d,
+            error: (res,status) => { console.log(res)},
+            success: (res,status) => { console.log(res)}
+        });
+    }
+});
 
 

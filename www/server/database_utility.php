@@ -1,5 +1,6 @@
 <?php
    require 'dbconfig.php';
+   session_start();
    function connect()  {
       global $db_username,$db_password,$db_host,$db_name;
       $conn = new mysqli($db_host,$db_username,$db_password,$db_name);
@@ -63,7 +64,23 @@
       }
    }
 
-   function new_event($conn,$data) {
-      $stmt = "INSERT INTO events(eid,name,)"
+   function get_event_id($conn) {
+      $q = $conn->query("SELECT id from events");
+      $new_id = md5(uniqid());
+      while ($conn->query("SELECT id from events where id='$new_id'")->num_rows!=0 ) {
+         $new_id = md5(uniqid());
+      }
+      return $new_id;
    }
+
+   function new_event($conn,$data) {
+      print_r($data);
+      $id = get_event_id($conn);
+      $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
+
+      $q->bind_param("ssssiisss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"]);
+      $q->execute();
+      return $q->get_result();
+   }
+
 ?>
