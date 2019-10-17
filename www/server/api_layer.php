@@ -36,5 +36,8 @@
       session_destroy(); //temporary
       echo 1;
    }
+   else if ($_POST['kind']=='event') {
+      
+   }
 
 ?>

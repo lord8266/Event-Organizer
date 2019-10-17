@@ -133,14 +133,18 @@ function serialize_data() {
     var s1 = date_picker_end.toString()
     var s2 = time_picker_start
     var s3 = time_picker_end
-    let data = {"start":get_moment(s0.toString()+" " + get_time(s2)).toString(),
-                "end":get_moment(s1.toString()+" " + get_time(s3)).toString(),
+    let data = {"start":get_moment(s0.toString()+" " + get_time(s2)).format(),
+                "end":get_moment(s1.toString()+" " + get_time(s3)).format(),
                 "name":$("#event_name").val(),
                 "paid":$("#check_paid").prop("checked"),
                 "price":$("#price").val(),
                 "tags":serialize_tags(),
                 "description":$("#description_text").val()}
     return data
+}
+
+function send_data() {
+    
 }
 
 function validate_price(s) {

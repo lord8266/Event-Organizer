@@ -62,4 +62,8 @@
          return $res->fetch_assoc();
       }
    }
+
+   function new_event($conn,$data) {
+      $stmt = "INSERT INTO events(eid,name,)"
+   }
 ?>
