@@ -4,34 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="defaults.css">
+    <link rel="stylesheet" href="css/frameworks/materialize.css"/>
+    <link rel="stylesheet" href="css/navbar.css">
+
     <title>Login To Organiser</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-default ">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a href="index.php" class="navbar-item"> 
-                    <table class="">
-                        <tr> <td><img src="images/icon_a.png" class="navbar-brand logo" alt=""></td>
-                            <td><span href="" class="navbar-brand text-dark">Organiser</span></td>
-                        </tr>
-                    </table>
-                </a>	
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="logo">Organizer</a> </li>
+            <ul class="right">
+                <li> <a href="">Events</a></li>
+                <li><a href="">About</a></li>
+                <li>
+                    <a href="login.php">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">About</a>
-                </li>
-            
-        </nav>
-    <div class="container-fluid">
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
        
-        <div class="row justify-content-center my-5">
-            <div class="col-5 justify-content-center">
+        <div class="row">
+            <div class="col-5">
             <h2 class="text-center"> Login To Organiser</h2>
             </div>
         </div>

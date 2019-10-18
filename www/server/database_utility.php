@@ -15,7 +15,13 @@
       }
       return $new_id;
    }
-
+   function unset_all() {
+      session_start();
+      setcookie("id", "", time()-3600,"/");
+      unset($_SESSION['id']);
+      session_destroy(); 
+   }
+   
    function newuser($conn,$username,$email,$password) {
       $id = uid($conn);
       $q= $conn->prepare("INSERT INTO users(id,username,email,password) VALUES(?,?,?,?)");

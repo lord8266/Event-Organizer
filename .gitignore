@@ -1,7 +1,7 @@
 external
 logs
 *.sh
-event_organizer.conf
+/event_organizer.conf
 www/server/test.php
 www/server/dbconfig.php
 third-party

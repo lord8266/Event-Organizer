@@ -1,7 +1,6 @@
 <?php 
    require_once 'database_utility.php';
    function set_session($data,$conn=NULL) {
-      session_start();
       $_SESSION['id'] = $data['id'];
       $_SESSION['username'] = $data['username'];
       setcookie("id",$data['id'],time()+31536000,'/');

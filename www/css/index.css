@@ -1,0 +1,16 @@
+.search {
+    margin-top: 2.5em;
+}
+
+.pane {
+    margin-top: 10em;
+}
+
+.signup_pane {
+    
+}
+
+body {
+    /* background-image: url("../images/test.svg"); */
+    z-index: -1000;
+}

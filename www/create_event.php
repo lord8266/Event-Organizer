@@ -1,8 +1,16 @@
-<?php session_start();
+<?php 
+require "server/database_utility.php";
+$conn  = connect();
 if (!isset($_SESSION['id'])) {
     header("Location: index.php");
     die();
 }
+else if (!datafrom_id($conn,$_SESSION["id"])) {
+    unset_all();
+    header("Location: index.php");
+    die();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,11 +19,11 @@ if (!isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/frameworks/materialize.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="create_event.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/create_event.css">
     <title>Organise</title>
 </head>
 
@@ -176,7 +184,7 @@ if (!isset($_SESSION['id'])) {
         </div>
         <div class="row">
             <div class="col s8">
-                <a href="#" class="btn btn-large " id="create_event"> Create Event!</a>
+                <a href="#" class="btn btn-large waves-effect waves-light" id="create_event"> Create Event!</a>
             </div>
         </div>
     </div>
@@ -186,7 +194,7 @@ if (!isset($_SESSION['id'])) {
 </body>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="scripts/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="scripts/create_event.js"></script>
 
 </html>

@@ -25,6 +25,10 @@
 }
 
 body {
-    background-image: url("images/test.svg");
+    background-image: url("../images/test.svg");
     z-index: -1;
 }
+
+#logout {
+    color: rgb(134, 124, 124)
+ }
