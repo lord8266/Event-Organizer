@@ -12,12 +12,9 @@
          $q = datafrom_id($conn,$_COOKIE["id"]);
          if ($q) {
             set_session($q);
-            return 1;
+            return $q;
          }
-         return 0;
       }
-      else {
-         return 0;
-      }
+      return NULL;
    }
 ?>

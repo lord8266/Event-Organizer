@@ -8,17 +8,6 @@ function validate_email(s) {
     return s.match(p)!=null;
 }
 
-function toast(message) {
-    message = message.replace(/\n/g,"<br>")
-    $('.toast').attr('data-delay',2000);
-    $('.toast-body').html(message)
-    $('.toast').toast('show')
-}
-
-function error_template(err) {
-    return `<tr><td>${err}</td></tr>`;
-}
-
 $('#signup').click((a,b) => {
     var username = $('#username');
     var email = $('#email');
@@ -28,19 +17,19 @@ $('#signup').click((a,b) => {
     var b = true;
     var err = []
     if (!username.val()) {
-        err.push(error_template('Empty Name'))
+        err.push('Empty Name')
         b=false;
     }
     if (!email.val()) {
-        err.push(error_template('Empty Email'))
+        err.push('Empty Email')
         b=false;
     }
     if (!password.val()) {
-        err.push(error_template('Empty Password'))
+        err.push('Empty Password')
         b=false;
     }
     if (!b) {
-        toast(err.join(""))
+        M.toast({html:err.join("<br>")})
     }
     if (b) {
     if (validate_email(email.val())) {
@@ -50,12 +39,12 @@ $('#signup').click((a,b) => {
                 window.location.href = "user_page.php";
             }
             else {
-                toast(error_template('Email Already Exists on this site?'))
+                M.toast({html:'Email Already Exists on this site?' })
             }
         });
     }
     else {
-        toast(error_template("Invalid Email"))
+        M.toast({html:"Invalid Email"})
     }
 }
    

@@ -1,16 +1,20 @@
 .search {
-    margin-top: 2.5em;
+    margin-top: 3.6em;
 }
 
 .pane {
     margin-top: 10em;
 }
 
-.signup_pane {
-    
+
+.container {
+    padding-left: 10em;
+    padding-right: 10em;
+    background :white;
+    z-index: 10 !important;
 }
 
 body {
-    /* background-image: url("../images/test.svg"); */
+    background-image: url("../images/test.svg");
     z-index: -1000;
 }

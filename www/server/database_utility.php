@@ -70,7 +70,7 @@
       }
    }
 
-   function get_event_id($conn) {
+   function event_id($conn) {
       $q = $conn->query("SELECT id from events");
       $new_id = md5(uniqid());
       while ($conn->query("SELECT id from events where id='$new_id'")->num_rows!=0 ) {
@@ -81,12 +81,25 @@
 
    function new_event($conn,$data) {
       print_r($data);
-      $id = get_event_id($conn);
+      $id = event_id($conn);
       $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
 
       $q->bind_param("ssssiisss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"]);
       $q->execute();
       return $q->get_result();
+   }
+   function get_event_details($id) {
+      $conn = connect();
+      $q = $conn->prepare("SELECT * FROM events WHERE id=?");
+      $q->bind_param("s",$id);
+      $q->execute();
+      $res = $q->get_result();
+      if ($res) {
+         return $res->fetch_assoc();
+      }
+      else {
+         return NULL;
+      }
    }
 
 ?>

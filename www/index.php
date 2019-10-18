@@ -13,6 +13,7 @@ if (check_cookie()) {
 		<link rel="stylesheet" href="css/frameworks/materialize.css"/>
 		<link rel="stylesheet" href="css/navbar.css">
 		<link rel="stylesheet" href="css/index.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<title>Document</title>
 	</head>
 	<body>
@@ -35,7 +36,7 @@ if (check_cookie()) {
 					<input class="" type="text">
 				</div>
 				<div class="offset-s1 col s2">
-					<a href="" id="search" class="btn waves waves-effect"> Search</a>
+					<a href="" id="search" class="btn waves waves-effect"> <i class="material-icons left">search</i> Search Events</a>
 				</div>
 			</div>	
 		
