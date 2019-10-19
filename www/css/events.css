@@ -1,0 +1,18 @@
+#event_image {
+    width: 10em;
+}
+
+.container {
+    margin-top: 5em;
+    background-color: white;
+    padding-left:10em;
+    padding-right: 10em;
+}
+.tabs {
+    margin-top: 5em;
+    margin-bottom: 4em;
+}
+
+body {
+    background-image: url("../images/test.svg")
+}

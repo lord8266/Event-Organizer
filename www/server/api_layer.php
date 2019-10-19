@@ -44,6 +44,12 @@
          session_destroy(); //temporary
          echo 1;
       }
+      else if ($_POST['kind']=='event_details') {
+         
+         $data_event = get_event_details($_COOKIE["event_id"]);
+         
+         echo json_encode($data_event);
+      }
       
 }
 
