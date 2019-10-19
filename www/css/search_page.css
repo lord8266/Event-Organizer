@@ -13,4 +13,17 @@
     border-radius: 1em;
  }
 
+ img{
+    width: 10em;
+}
+ 
+ .event_preview {
+    padding-top: 5em;
+ }
+
+ .icon ,#verified {
+    line-height: 24px !important;
+    font-size: 20px !important ;
+ }
+
  

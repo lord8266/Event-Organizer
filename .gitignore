@@ -6,4 +6,4 @@ www/server/test.php
 www/server/dbconfig.php
 third-party
 .vscode
-defaults
+# defaults

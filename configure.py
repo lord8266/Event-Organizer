@@ -47,19 +47,21 @@ def create_tables(p,conf):
     for cmd in conf['tables'].split('\n'):
         c.execute(cmd)
 
+def re_enable(p,conf):
+    os.popen(conf['copy'].format(hosts_file="event_organizer.conf" ) )
+    os.popen(conf['enable'].format(hosts_file="event_organizer.conf" ) )
+    os.popen(conf['restart'])
 def new_install(p,conf):
     create_tables(p,conf)
     write_dbconfig(p,conf)
     write_hosts(conf)
-    os.popen(conf['copy'].format(hosts_file="event_organizer.conf" ) )
-    os.popen(conf['enable'].format(hosts_file="event_organizer.conf" ) )
-    os.popen(conf['restart'])
+    re_enable(p,conf)
 
 parser = argparse.ArgumentParser(description="useful thing")
 parser.add_argument("-u", "--username", help="Your Username")
 parser.add_argument("-p", "--password", help="Your Password")
 parser.add_argument('--create', action='store_const', const=new_install, dest='cmd',default=new_install)
-parser.add_argument('--update', action='store_const', const=new_install, dest='cmd',default=new_install)
+parser.add_argument('--update', action='store_const', const=re_enable, dest='cmd',default=new_install)
 p=parser.parse_args(sys.argv[1:])
 
 conf["hosts"] = open(conf["hosts"]).read()

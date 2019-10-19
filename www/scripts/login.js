@@ -10,17 +10,6 @@ function validate_password(s) {
 }
 
 
-function toast(message) {
-    message = message.replace(/\n/g,"<br>");
-    $('.toast').attr('data-delay',3000);
-    $('.toast-body').html(message)
-    $('.toast').toast('show')
-}
-
-function error_template(err) {
-    return `<tr><td>${err}</td></tr>`;
-}
-
 function clear_form(u,p) {
     if (u) {
         $('#email').val('')
@@ -35,35 +24,35 @@ $('#login').click(function() {
     var b = true;
     var err = []
     if (!email) {
-        err.push(error_template('Empty Email'))
+        err.push('Empty Email')
         b=false;
     }
     if (!password) {
-        err.push(error_template('Empty Password'))
+        err.push('Empty Password')
         b=false;
     }
     if (!b) {
-        toast(err.join(""))
+        M.toast({html:err.join("<br>")});
     }
     else {
     if (validate_email(email)) {
         $.post('server/api_layer.php',{kind:"login",email:email,password:password},function(data,status) {
             console.log(data);
             if (data==0) {
-                toast('Email Not Found');
+                M.toast({html:'Email Not Found'});
                 clear_form(1,1);
             }
             else if (data==1) {
-                toast('Invalid Password');
+                M.toast({html:'Invalid Password'});
                 clear_form(0,1);
             }
             else {
-                window.location = 'user_page.php';
+                window.location = 'search_page.php';
             }
         })
     }
     else {
-        toast('Invalid Email');
+        M.toast({html:'Invalid Email'});
     }
     
 } } )

@@ -1,0 +1,33 @@
+#event_image {
+    width: 10em;
+}
+
+.container {
+    margin-top: 5em;
+    
+    
+    padding-left:10em;
+    padding-right: 10em;
+}
+.tabs {
+    margin-top: 5em;
+    margin-bottom: 4em;
+}
+
+body {
+    
+    background-size: contain;
+}
+
+.manage-dropdown{
+    top:100%;
+    position: fixed;
+}
+
+.position-relative {
+    position: relative !important;
+}
+.icon ,#verified {
+    line-height: 24px !important;
+    font-size: 20px !important ;
+ }

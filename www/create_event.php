@@ -1,12 +1,7 @@
 <?php 
-require "server/database_utility.php";
-$conn  = connect();
-if (!isset($_SESSION['id'])) {
-    header("Location: index.php");
-    die();
-}
-else if (!datafrom_id($conn,$_SESSION["id"])) {
-    unset_all();
+require "server/session_utility.php";
+$data_user = check_cookie();
+if (!$data_user) {
     header("Location: index.php");
     die();
 }
@@ -28,23 +23,9 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="logo">Organizer</a> </li>
-            <ul class="right">
-                <li> <a href="">Events</a></li>
-                <li><a href="">About</a></li>
-                <li>
-                    <a class='dropdown-trigger' href='#' data-target='dropdown1'><?php echo $_SESSION['username'] ?></a>
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="create_event.php">Create Event</a></li>
-                        <li class="divider"> </li>
-                        <li><a id="logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php 
+        echo strtr(file_get_contents("defaults/navbar_loggedIn.html"),array('$username' => $data_user["username"]));
+    ?>
     <div class="container">
         <div class="row" id="tabs">
             <div class="col s12">
@@ -58,33 +39,32 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
         <div class="row" id="front">
             <div class="col s12">
                 <div class="row">
+                    <div class="col s3">
+                        <div style="">
+                            <img class="responsive-img circle profile" id="profile" src="images/default.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s6">
                         <input  id="event_name" type="text" class="validate">
                         <label for="event_name">Event Name</label>
-                    </div>
-                    <div class="offset-s2 col s3">
-                        <div style="">
-                            <img class="responsive-img circle profile" id="profile" src="images/red.png">
-                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12">
                         <ul class="collapsible" id="collapsible_front">
-                            <li>
+                            <li class="active">
                                 <div class="collapsible-header"><i class="material-icons">add_a_photo</i>Event Profile Image</div>
                                 <div class="collapsible-body">
-
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">colorize</i>Event Background Image</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">colorize</i>Event Border Color</div>
-                                <div class="collapsible-body row">
-                                    <input type="color" class="waves-effect waves-light btn" name="border_color" id="border_color">
+                                    <div class="row">
+                                        <div class="col s6 center-align">
+                                            <h5>Choose Image</h5>
+                                        </div>
+                                        <div class="col s6 center-align">
+                                            <h5>Choose Color</h5>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -96,7 +76,7 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
         <div id="tal" class="row ">
             <div class="col s12">
                 <ul class="collapsible" id="collapsible_tal">
-                    <li>
+                    <li class="active" >
                         <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose Start </div>
                         <div class="collapsible-body">
                             <label for="date_start">Start Date</label>
@@ -105,7 +85,7 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
                             <input type="text" class="timepicker" id="time_start">
                         </div>
                     </li>
-                    <li>
+                    <li class="active">
                         <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose End </div>
                         <div class="collapsible-body">
                             <p>Choose Time If Applicable</p>
@@ -116,13 +96,13 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
                             <input type="text" class="timepicker" id="time_end">
                         </div>
                     </li>
-                    <li>
+                    <li class="active">
                         <div class="collapsible-header"> <i class="material-icons">add_location</i> Location</div>
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s9 input-field">
                                     <i class="material-icons prefix">mode_edit</i>
-                                    <textarea id="address" class="materialize-textarea"></textarea>
+                                    <textarea id="location" class="materialize-textarea"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +114,7 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
         <div id="desc" class="row">
             <div class="offset-s1 col s10">
 
-                <p> Enter Description (Any extra details</p>
+                <p> Enter Description / Any extra details</p>
             </div>
             <div class="col s10 input-field">
                 <i class="material-icons prefix"> mode_edit</i>
@@ -196,5 +176,8 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="scripts/create_event.js"></script>
+<?php 
+echo '<script src="defaults/navbar_loggedIn.js"></script>';
+?>
 
 </html>

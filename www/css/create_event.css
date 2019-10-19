@@ -9,10 +9,7 @@
 }
 
 .profile {
-    border:0.26em solid rgba(0, 0, 0, 0.664);
-    border-radius: 50%;
-    width: 10em;
-    height: 10em;
+  width: 10em;
 }
 
 .tag {
@@ -25,7 +22,9 @@
 }
 
 body {
-    background-image: url("../images/test.svg");
+   
+    background-size: cover;
+    background-repeat: no-repeat;
     z-index: -1;
 }
 
