@@ -98,7 +98,12 @@ setcookie("event_id",$_GET["event_id"]);
                 <div class="col s4"> <h5> Additional Details </h5> </div>
             </div>
             <div class="row">
-                <div class="col s4" id="additional_details">
+                <div class="col s4" >
+                    <p id="description"> </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4" id="price">
                 </div>
             </div>
             <div class="row">

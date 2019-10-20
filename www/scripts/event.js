@@ -44,15 +44,21 @@ $(document).ready(
             $("#from").html(date_format(data["start"]));
             $("#to").html(date_format(data["end"]))
             if (data["tags"])
-                data["tags"].split("\n").forEach((t)=> { $("#tags").append(chip_gen(t)) } )
-            $("#description").html(data["description"])
+                data["tags"].split(",").forEach((t)=> { $("#tags").append(chip_gen(t)) } )
+                if (data["description"]=="") {
+                    $("#description").html("No details given")
+                }
+                
+                else {
+                    $("#description").html(data["description"])
+                }
+            
             if (data["paid"]) {
-                $('#additional_details')
-                .append($(`<table><tr><th>Description</th><th>Price</th></tr><tr><td>${data["description"]}</td><td>${data["price"]}</td></tr></table>`))
+                $('#price')
+                .append($(`<table><tr><th>Price</th></tr><tr><td>${data["price"]}</td></tr></table>`))
             }
             else {
-                $('#additional_details')
-                .append($(`<table><tr><th>Description</th></tr><tr><td>${data["description"]}</td></tr></table>`))
+                
             }
             get_participants();
 
