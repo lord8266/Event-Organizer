@@ -14,7 +14,7 @@ $('document').ready(
         tabs = M.Tabs.init( $('.tabs')[0]) ;
         login_dropdown = M.Dropdown.init( $('.dropdown-trigger')[0]) ;
         collapisble_front = M.Collapsible.init( $('#collapsible_front')[0]) ;
-        collapsible_tal = M.Collapsible.init( $('#collapsible_tal')[0],{accordion:false}) ;
+        collapsible_tal = M.Collapsible.init( $('#collapsible_tal')[0],{accordion:false});
         date_picker_start =M.Datepicker.init( $('#date_start')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('s','d')}  }) ;
         date_picker_end = M.Datepicker.init( $('#date_end')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('e','d')} ,onOpen:()=>{on_open('e')} }) ;
 
@@ -30,14 +30,6 @@ $('document').ready(
 
 );
 
-
-$('#logout').click(() => {
-    $.post('server/api_layer.php', {
-        kind: "logout"
-    }, (data, status) => {
-        window.location.href = "index.php"
-    });
-})
 function get_time(s) {
     
     h = s.hours
@@ -227,8 +219,8 @@ $("#create_event").click(function() {
             type: "POST",
             contentType: "application/json",
             data: d,
-            error: (res,status) => { console.log(res)},
-            success: (res,status) => { console.log(res)}
+            error: (res,status) => { M.toast({html: "Server Error <br> Please Try Again Later"})},
+            success: (res,status) => { window.location = `event.php?event_id=${res}` }
         });
     }
 });

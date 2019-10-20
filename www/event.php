@@ -5,9 +5,15 @@ require 'server/session_utility.php';
 $data_user= check_cookie();
 $loggedIn = $data_user!=NULL;
 $data_event = get_event_details($_GET["event_id"]);
+if ($data_user) {
+    $isOwner = $data_event["owner"]==$data_user["id"];
+}
+else {
+    $isOwner = FALSE;
+}
 setcookie("event_id",$_GET["event_id"]);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,28 +46,79 @@ setcookie("event_id",$_GET["event_id"]);
             <div class="col s3">
                 <h4> <?php echo $data_event["name"] ?> </h4>
             </div>
-            <div class="col s5">
-                <h5>Ongoing</h5>
-            </div>
         </div>
         <div class="row">
             <div class="col s7">
                 <ul class="tabs">
                     <li class="tab col s4"><a href="#details" class="tab_item">Details</a></li>
-                    <li class="tab col s4"><a class="tab_item" href="#participants">Participants</a></li>
-                    <li class="tab col s4"><a href="#manage" class="tab_item">Manage</a></li>
+                    <li class="tab col s4"><a class="tab_item" href="#participants_tab">Participants</a></li>
+                    <?php if ($isOwner) {
+                    echo '<li class="tab col s4"><a href="#manage" class="tab_item">Manage</a></li>';
+                    }?>
                 </ul>
             </div>
         </div>
-
-        <div class="row" id="details">
+        <div id="details">
+            <div class="row">
+                <div class="row">
+                    <div class="col s1">
+                        <strong>Owner</strong>
+                    </div>
+                    <div class="col s2">
+                        <a  class="black-text" href="user.php?user_id=<?php echo $data_user["id"]?>"> <?php echo $data_user["username"] ?> </a>
+                    </div>
+                </div>
+            </div>
             <div class="row" id="date_range">
-                <div class="col s2" >From</div>
-                <div class="col s2" id="from"></div>
-                <div class="col s2">To</div>
-                <div class="col s2" id="to"></div>
+                <div class="col s4">
+                    <table>
+                        <tr>
+                            <th> From</th><th>To</th> <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td id="from"></td><td id="to"></td> <td id="status"> Ongoing</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s2"> <h5> Location </h5> </div>
+            </div>
+            <div class="row">
+                <div class="col s5"> GG</div>
+            </div>
+            <div class="row">
+                <div class="col s3"> <h5>Tags</h5> </div>
+            </div>
+            <div class="row">
+                <div class="col s4" id="tags">  </div>
+            </div>
+            <div class="row">
+                <div class="col s4"> <h5> Additional Details </h5> </div>
+            </div>
+            <div class="row">
+                <div class="col s4" id="additional_details">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s5"> <a class="btn btn-large waves waves-effect"> Request To Join</a> </div>
             </div>
         </div>
+
+        <div id="participants_tab">
+            <div class="row">
+                <div class="col s4" id="participants">
+                    
+                        
+                </div>
+            </div>
+        </div>
+        <?php 
+            if ($isOwner) {
+                echo file_get_contents("defaults/manage.html");
+            }
+        ?>
     </div>
     
 
@@ -72,6 +129,9 @@ setcookie("event_id",$_GET["event_id"]);
     <?php
     if ($loggedIn) {
         echo "<script>".file_get_contents("defaults/navbar_loggedIn.js")."</script>";
+    }
+    if ($isOwner) {
+        echo "<script>".file_get_contents("defaults/manage.js")."</script>";
     }
     ?>
 </body>

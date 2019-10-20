@@ -3,10 +3,17 @@
    require_once 'session_utility.php';
    if ($_SERVER["CONTENT_TYPE"]=="application/json") {
          $data = file_get_contents("php://input");
-         echo $data;
          $data = json_decode($data);
          $conn = connect();
-         return new_event($conn,$data);
+         $res =  new_event($conn,$data);
+         if ($res) {
+            http_response_code(200);
+            echo $res;
+         }
+         else {
+            http_response_code(503);
+            die();
+         }
    }
    else {
       if ($_POST['kind']=='signup') {
@@ -38,17 +45,40 @@
          echo email_exists($conn,$_POST['email']);
       }
       else if ($_POST['kind']=='logout') {
-         session_start();
-         setcookie("id", "", time()-3600,"/");
-         unset($_SESSION['id']);
-         session_destroy(); //temporary
-         echo 1;
+         unset_all();
       }
       else if ($_POST['kind']=='event_details') {
          
          $data_event = get_event_details($_COOKIE["event_id"]);
-         
-         echo json_encode($data_event);
+         if ($data_event) {
+            echo json_encode($data_event);
+         }
+         else {
+            http_response_code(503);
+            die();
+         }
+      }
+      else if ($_POST["kind"]=="participants") {
+   
+         $res = get_event_participants($_COOKIE["event_id"],1);
+         if ($res) {
+            echo $res;
+         }
+         else {
+            http_response_code(503);
+            die();
+         }
+      }
+      else if ($_POST["kind"]=="pending_requests") {
+   
+         $res = get_event_participants($_COOKIE["event_id"],2);
+         if ($res) {
+            echo $res;
+         }
+         else {
+            http_response_code(503);
+            die();
+         }
       }
       
 }

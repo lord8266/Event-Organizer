@@ -96,7 +96,7 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
         <div id="tal" class="row ">
             <div class="col s12">
                 <ul class="collapsible" id="collapsible_tal">
-                    <li>
+                    <li class="active" >
                         <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose Start </div>
                         <div class="collapsible-body">
                             <label for="date_start">Start Date</label>
@@ -105,7 +105,7 @@ else if (!datafrom_id($conn,$_SESSION["id"])) {
                             <input type="text" class="timepicker" id="time_start">
                         </div>
                     </li>
-                    <li>
+                    <li class="active">
                         <div class="collapsible-header"> <i class="material-icons">access_time</i> Choose End </div>
                         <div class="collapsible-body">
                             <p>Choose Time If Applicable</p>

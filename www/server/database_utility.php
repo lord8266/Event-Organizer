@@ -15,18 +15,14 @@
       }
       return $new_id;
    }
-   function unset_all() {
-      session_start();
-      setcookie("id", "", time()-3600,"/");
-      unset($_SESSION['id']);
-      session_destroy(); 
-   }
+   
    
    function newuser($conn,$username,$email,$password) {
       $id = uid($conn);
       $q= $conn->prepare("INSERT INTO users(id,username,email,password) VALUES(?,?,?,?)");
       $q->bind_param("ssss",$id,$username,$email,$password);
       $q->execute();
+      
       return $id;
    }
 
@@ -80,13 +76,22 @@
    }
 
    function new_event($conn,$data) {
-      print_r($data);
       $id = event_id($conn);
-      $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
-
-      $q->bind_param("ssssiisss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"]);
-      $q->execute();
-      return $q->get_result();
+      try {
+         $conn->begin_transaction();
+         $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
+         $q->bind_param("ssssiisss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"]);
+         $q->execute();
+         $q = $conn->prepare("INSERT INTO participants(event_id,user_id,access) VALUES(?,?,2)");
+         $q->bind_param("ss",$id,$_SESSION["id"]);
+         $q->execute();
+         $conn->commit();
+         return $id;
+      }
+      catch (Exception $e) {
+         $conn->rollback();
+         return NULL;
+      }
    }
    function get_event_details($id) {
       $conn = connect();
@@ -98,6 +103,21 @@
          return $res->fetch_assoc();
       }
       else {
+         return NULL;
+      }
+   }
+
+   function get_event_participants($id,$access) {
+      $conn = connect();
+
+      try {
+         $q = $conn->prepare("SELECT participants.user_id,users.username from participants INNER JOIN users on participants.user_id=users.id where participants.access=? and participants.event_id=?");
+         $q->bind_param("is",$access,$id);
+         $q->execute();
+         $res = $q->get_result();
+         return json_encode($res->fetch_all(MYSQLI_ASSOC));
+      }
+      catch (Exception $e) {
          return NULL;
       }
    }

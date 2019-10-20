@@ -17,4 +17,10 @@
       }
       return NULL;
    }
+   
+   function unset_all() {
+      setcookie("id", "", time()-3600,"/");
+      unset($_SESSION['id']);
+      session_destroy(); 
+   }
 ?>
