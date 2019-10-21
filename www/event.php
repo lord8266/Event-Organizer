@@ -106,9 +106,8 @@ setcookie("event_id",$_GET["event_id"]);
                 <div class="col s4" id="price">
                 </div>
             </div>
-            <div class="row">
-                <div class="col s5"> <a class="btn btn-large waves waves-effect"> Request To Join</a> </div>
-            </div>
+            <div class="row"><div class="col s5"> <a class="btn btn-large waves waves-effect" id="request" >  </a> </div></div>';
+            
         </div>
 
         <div id="participants_tab">

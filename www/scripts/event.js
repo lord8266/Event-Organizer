@@ -34,6 +34,45 @@ function get_participants() {
         }
     } )
 }
+
+function request_join() {
+    if ($("#request").data("access") ==-1) {
+        $.post("server/api_layer.php",{
+            kind: "request_join"
+        },(res,status)=> {
+            if (status=="success") {
+                if (res==1) {
+                    M.toast({html: "Successfully Sent Request"});
+                    $("#request").html("Request Pending");
+                }
+                else {
+                    M.toast({html: "Server Error!!"})
+                }
+            }
+            else {
+                M.toast({html: "Server Error"})
+            }
+        })
+}
+}
+function check_request() {
+    $.post("server/api_layer.php",{
+        kind:"check_join"
+    },(res,status) => {
+        if (res==2) {
+            $("#request").html("Edit").data("access",2)
+        }
+        else if (res==1) {
+            $("#request").html("Leave Event").data("access",1)
+        }
+        else if (res==0) {
+            $("#request").html("Request Pending").data("access",0)
+        }
+        else if(res==-1) {
+            $("#request").html("Request").data("access",-1).click(request_join)
+        }
+    })
+}
 $(document).ready(
     function() {
        tabs =  M.Tabs.init($(".tabs"))
@@ -61,6 +100,7 @@ $(document).ready(
                 
             }
             get_participants();
+            check_request();
 
     })
        

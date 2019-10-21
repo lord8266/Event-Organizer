@@ -70,10 +70,27 @@
          }
       }
       else if ($_POST["kind"]=="pending_requests") {
-   
-         $res = get_event_participants($_COOKIE["event_id"],2);
+         
+         $res = get_event_participants($_COOKIE["event_id"],0);
          if ($res) {
             echo $res;
+         }
+         else {
+            http_response_code(503);
+            die();
+         }
+      }
+      else if ($_POST["kind"]=="check_join") {
+         check_cookie();
+         $res = access_level($_COOKIE["event_id"],$_COOKIE["id"]);
+         echo $res;
+      }
+
+      else if ($_POST["kind"]=="request_join") {
+         check_cookie();
+         $res = access_level($_COOKIE["event_id"],$_COOKIE["id"]);
+         if ($res==-1) {
+            echo add_request($_COOKIE["event_id"],$_COOKIE["id"]);
          }
          else {
             http_response_code(503);

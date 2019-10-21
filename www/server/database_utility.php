@@ -7,18 +7,20 @@
       return $conn;
    }
 
-   function uid($conn) {
-      $q = $conn->query("SELECT id from users");
+   function unique_id($conn,$kind) {
+      $q = $conn->query("SELECT id from id_store");
       $new_id = md5(uniqid());
-      while ($conn->query("SELECT id from users where id='$new_id'")->num_rows!=0 ) {
+      while ($conn->query("SELECT id from id_store where id='$new_id'")->num_rows!=0 ) {
          $new_id = md5(uniqid());
       }
+      $q =$conn->prepare("INSERT INTO id_store(id,kind) VALUES(?,?)");
+      $q->bind_param("ss",$new_id,$kind);
+      $q->execute();
       return $new_id;
    }
    
-   
    function newuser($conn,$username,$email,$password) {
-      $id = uid($conn);
+      $id = unique_id($conn,"user");
       $q= $conn->prepare("INSERT INTO users(id,username,email,password) VALUES(?,?,?,?)");
       $q->bind_param("ssss",$id,$username,$email,$password);
       $q->execute();
@@ -66,17 +68,9 @@
       }
    }
 
-   function event_id($conn) {
-      $q = $conn->query("SELECT id from events");
-      $new_id = md5(uniqid());
-      while ($conn->query("SELECT id from events where id='$new_id'")->num_rows!=0 ) {
-         $new_id = md5(uniqid());
-      }
-      return $new_id;
-   }
 
    function new_event($conn,$data) {
-      $id = event_id($conn);
+      $id = unique_id($conn,"event");
       try {
          $conn->begin_transaction();
          $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
@@ -118,6 +112,38 @@
          return json_encode($res->fetch_all(MYSQLI_ASSOC));
       }
       catch (Exception $e) {
+         return NULL;
+      }
+   }
+
+   function access_level($event_id,$user_id) {
+      $conn = connect();
+      $q = $conn->prepare("SELECT access from participants where event_id=? and user_id=?");
+      $q->bind_param("ss",$event_id,$user_id);
+      $q->execute();
+      $res = $q->get_result();
+      if ($res->num_rows==0) {
+         return -1;
+      }
+      else  if ($res!=NULL) {
+         return ($res->fetch_assoc()["access"]);
+      }
+      else {
+         http_response_code(503);
+         die();
+      }
+   }
+
+   function add_request($event_id,$user_id) {
+      $conn = connect();
+      $q = $conn->prepare("INSERT INTO participants(event_id,user_id,access) VALUES(?,?,0)");
+      $q->bind_param("ss",$event_id,$user_id);
+      $q->execute();
+      $res = $q->affected_rows;
+      if ($res) {
+         return 1;
+      }
+      else {
          return NULL;
       }
    }
