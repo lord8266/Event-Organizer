@@ -43,6 +43,16 @@ if (!isset($_SESSION['id'])) {
             <a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>Search Events</a>
          </div>
       </div>
+      <br>
+      
+      <br>
+      <div class="row">
+         <div class="col s12">
+            <h4> A-Z</h4>
+         </div>
+         
+      </div>
+      <div class="divider"></div>
    </div>
 
 </body>
