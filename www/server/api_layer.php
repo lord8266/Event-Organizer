@@ -2,6 +2,7 @@
    require_once 'database_utility.php';
    require_once 'session_utility.php';
    if ($_SERVER["CONTENT_TYPE"]=="application/json") {
+         check_cookie();
          $data = file_get_contents("php://input");
          $data = json_decode($data);
          $conn = connect();

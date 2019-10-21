@@ -18,3 +18,12 @@ body {
     
     background-size: contain;
 }
+
+.manage-dropdown{
+    top:100%;
+    position: fixed;
+}
+
+.position-relative {
+    position: relative !important;
+}

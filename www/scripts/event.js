@@ -54,6 +54,7 @@ function request_join() {
             }
         })
 }
+
 }
 function check_request() {
     $.post("server/api_layer.php",{
@@ -87,7 +88,6 @@ $(document).ready(
                 if (data["description"]=="") {
                     $("#description").html("No details given")
                 }
-                
                 else {
                     $("#description").html(data["description"])
                 }
