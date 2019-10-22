@@ -98,6 +98,15 @@
             die();
          }
       }
+      else if ($_POST["kind"]=="all_events") {
+         $res = all_events();
+         if ($res) {
+            echo json_encode($res);
+         }
+         else {
+            echo "[]";
+         }
+      }
       
 }
 

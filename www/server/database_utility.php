@@ -147,5 +147,10 @@
          return NULL;
       }
    }
+   function all_events() {
+      $conn = connect();
+      $q = $conn->query("SELECT events.*,users.username as owner_name from events INNER JOIN users on events.owner=users.id");
+      return $q->fetch_all(MYSQLI_ASSOC);
+   }
 
 ?>

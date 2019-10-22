@@ -1,9 +1,11 @@
-<?php session_start();
-if (!isset($_SESSION['id'])) {
-   header("Location: index.php");
-   die();
-}
+<?php
+require 'server/database_utility.php';
+require 'server/session_utility.php';
+
+$data_user= check_cookie();
+$loggedIn = $data_user!=NULL;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,23 +21,16 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <body>
-   <nav>
-      <div class="nav-wrapper">
-         <a href="#" class="logo">Organizer</a> </li>
-         <ul class="right">
-            <li> <a href="">Events</a></li>
-            <li><a href="">About</a></li>
-            <li>
-               <a class='dropdown-trigger' href='#' data-target='dropdown1'><?php echo $_SESSION['username'] ?></a>
-               <ul id='dropdown1' class='dropdown-content'>
-                  <li><a href="create_event.php">Create Event</a></li>
-                  <li class="divider"> </li>
-                  <li><a id="logout">Logout</a></li>
-               </ul>
-            </li>
-         </ul>
-      </div>
-   </nav>
+   <?php
+   if ($loggedIn) {
+      echo strtr(file_get_contents("defaults/navbar_loggedIn.html"),array('$username'=> $data_user["username"] ));
+   }
+   else {
+      if ($loggedIn) {
+         echo file_get_contents("defaults/navbar_loggedOut.html");
+      }
+   }
+   ?>
    <div class="container">
       <div class="row" id="search">
          <div class="col s10"> <input type="text" id="search_text"></div>
@@ -50,23 +45,32 @@ if (!isset($_SESSION['id'])) {
          <div class="col s12">
             <h4> A-Z</h4>
          </div>
-         
       </div>
-      <div class="divider"></div>
+      <div class="row">
+         <div class="col s12" id="events">
+            <?php 
+               $res  =all_events();
+               foreach($res as $e) {
+                  echo strtr(file_get_contents("defaults/event_preview.html"),array('$event_name' => $e["name"],'$id' => $e["id"] ));
+               }
+
+               
+            
+
+            ?>
+         </div>
+      </div>
+   
    </div>
 
 </body>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-   $('.dropdown-trigger').dropdown();
-   $('#logout').click(() => {
-      $.post('server/api_layer.php', {
-         kind: "logout"
-      }, (data, status) => {
-         window.location.href = "index.php"
-      });
-   })
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="scripts/user_page.js"></script>
+<?php 
+   if ($loggedIn) {
+      echo '<script src="defaults/navbar_loggedIn.js"></script>';
+   }
+?>
 </html>
