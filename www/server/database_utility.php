@@ -21,7 +21,7 @@
    
    function newuser($conn,$username,$email,$password) {
       $id = unique_id($conn,"user");
-      $q= $conn->prepare("INSERT INTO users(id,username,email,password) VALUES(?,?,?,?)");
+      $q= $conn->prepare("INSERT INTO users(id,username,email,password,verified) VALUES(?,?,?,?,0)");
       $q->bind_param("ssss",$id,$username,$email,$password);
       $q->execute();
       
@@ -89,7 +89,7 @@
    }
    function get_event_details($id) {
       $conn = connect();
-      $q = $conn->prepare("SELECT * FROM events WHERE id=?");
+      $q = $conn->prepare("SELECT events.*,users.verified FROM events INNER JOIN users on events.owner=users.id WHERE events.id=?");
       $q->bind_param("s",$id);
       $q->execute();
       $res = $q->get_result();
@@ -149,7 +149,7 @@
    }
    function all_events() {
       $conn = connect();
-      $q = $conn->query("SELECT events.*,users.username as owner_name from events INNER JOIN users on events.owner=users.id");
+      $q = $conn->query("SELECT events.*,users.username as owner_name,users.verified from events INNER JOIN users on events.owner=users.id");
       return $q->fetch_all(MYSQLI_ASSOC);
    }
 

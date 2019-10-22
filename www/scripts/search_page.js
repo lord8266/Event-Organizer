@@ -24,8 +24,15 @@ function get_events() {
             el.find('.date_range').html(`${date_format(e["start"])} - ${date_format(e["start"])} `)
             // el.find(".owner").html("By "+e["owner_name"]).attr("href","user.php?user_id="+e["owner"])
             tags = e["tags"].split(',');
-            tags.forEach(t=>{el.find('.tags').append(chip_gen(t))});
-        });
+            if (tags!="")
+                tags.forEach(t=>{el.find('.tags').append(chip_gen(t))});
+            
+            if (e.verified==1)
+                el.find("#verified").html('<span class="green-text"><i class="material-icons icon">check_circle</i>Verified</span>')
+            else
+                el.find("#verified").html('<span class="blue-text"><i class="material-icons icon">info_outline</i>Not Verified</span>')
+
+            });
     });
 }
 

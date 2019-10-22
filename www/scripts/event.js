@@ -107,6 +107,12 @@ $(document).ready(
             else {
                 
             }
+            console.log("hi")
+            console.log(data.verified)
+            if (data.verified==1)
+                $("#verified").html('<span class="green-text"><i class="material-icons icon">check_circle</i>Verified</span>')
+            else
+                $("#verified").html('<span class="blue-text"><i class="material-icons icon">info_outline</i>Not Verified</span>')
             update_participants();
             check_request();
 

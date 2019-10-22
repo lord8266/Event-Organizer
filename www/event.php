@@ -71,6 +71,9 @@ setcookie("event_id",$_GET["event_id"]);
                     <div class="col s2">
                         <a  class="black-text" href="user.php?user_id=<?php echo $data_user["id"]?>"> <?php echo $data_user["username"] ?> </a>
                     </div>
+                    <div class="col s4" id="verified">
+
+                    </div>
                 </div>
             </div>
             <div class="row" id="date_range">
@@ -85,7 +88,7 @@ setcookie("event_id",$_GET["event_id"]);
                     </table>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="col s2"> <h5> Location </h5> </div>
             </div>
