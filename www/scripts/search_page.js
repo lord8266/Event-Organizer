@@ -22,7 +22,7 @@ function get_events() {
             let el = $(`#${e["id"]}_event`)
             console.log(`#${e["id"]}_event`)
             el.find('.date_range').html(`${date_format(e["start"])} - ${date_format(e["start"])} `)
-            el.find(".owner").html("By "+e["owner_name"]).attr("href","user.php?user_id="+e["owner"])
+            // el.find(".owner").html("By "+e["owner_name"]).attr("href","user.php?user_id="+e["owner"])
             tags = e["tags"].split(',');
             tags.forEach(t=>{el.find('.tags').append(chip_gen(t))});
         });

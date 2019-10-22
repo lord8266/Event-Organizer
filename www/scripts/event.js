@@ -13,14 +13,16 @@ function chip_gen(s) {
       });
 }
 
-function get_participants() {
+function update_participants() {
     $.post("server/api_layer.php",{
         kind: "participants",
     },(res,status) => {
         if (status=="success") {
             res = JSON.parse(res)
             console.log(res)
+            $("#participants").html("");
             if (res.length) {
+                
                 $("#participants").append($("<table> <tr> <th> Participants </th> </tr> </table>"))
                 
                 res.forEach((u) => {$("#participants table").append($("<tr></tr>").append($("<td></td>").append($("<a></a>",{html: u["username"],href: `user.php?user_id=${u["user_id"]}` })))) }  )
@@ -89,7 +91,13 @@ $(document).ready(
                     $("#description").html("No details given")
                 }
                 else {
-                    $("#description").html(data["description"])
+                    $("#description").html(data["description"]);
+                }
+                if (data["location"]=="") {
+                    $("#location").html("No details given")
+                }
+                else {
+                    $("#location").html(data["location"]);
                 }
             
             if (data["paid"]) {
@@ -99,7 +107,7 @@ $(document).ready(
             else {
                 
             }
-            get_participants();
+            update_participants();
             check_request();
 
     })

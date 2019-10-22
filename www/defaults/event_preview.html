@@ -1,12 +1,12 @@
-<div class="row event_preview" id="$id_event">
+<div class="row event_preview z-depth-2" id="$id_event">
     <div class="col s3">
         <div class="row">
-            <div class="col s4">
+            <div class="offset-s2 col s4 img">
                 <img src="$event_image" alt="">
             </div>
         </div>
         <div class="row">
-            <div class="col s4">
+            <div class="offset-s1 col s7">
                 <h5>$event_name</h5>
             </div>
         </div>
@@ -20,7 +20,7 @@
         <div class="divider"></div>
         <div class="row">
             <div class="col s3">
-                <a href="" class="waves waves-effect owner"></a>
+                <a href="user.php?user_id=$owner_id" class="waves waves-effect owner"> By $owner_name</a>
             </div>
         </div>
     </div>
@@ -32,6 +32,6 @@
             </div>
         </div>
         <br><br>
-        <div class="row"><div class="col s3"> <a href="" class="btn waves waves-effect" id="event_join">SS</a> </div></div>
+        <div class="row"><div class="col s5"> <a href="event.php?event_id=$event_id" class="btn waves btn-large waves-effect" id="event_join">View</a> </div></div>
     </div>
 </div>

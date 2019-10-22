@@ -5,6 +5,10 @@ require 'server/session_utility.php';
 $data_user= check_cookie();
 $loggedIn = $data_user!=NULL;
 $data_event = get_event_details($_GET["event_id"]);
+if (!$data_event) {
+    header("Location: index.php");
+    die();
+}
 if ($data_user) {
     $isOwner = $data_event["owner"]==$data_user["id"];
 }
@@ -39,7 +43,7 @@ setcookie("event_id",$_GET["event_id"]);
     <div class="container">
         <div class="row">
             <div class="col s5">
-                <img src="images/icon_a.png" id="event_image" alt="">
+                <img src="images/default.png" id="event_image" alt="">
             </div>
         </div>
         <div class="row">
@@ -86,7 +90,7 @@ setcookie("event_id",$_GET["event_id"]);
                 <div class="col s2"> <h5> Location </h5> </div>
             </div>
             <div class="row">
-                <div class="col s5"> GG</div>
+                <div class="col s5" id="location"> </div>
             </div>
             <div class="row">
                 <div class="col s3"> <h5>Tags</h5> </div>
@@ -132,10 +136,10 @@ setcookie("event_id",$_GET["event_id"]);
     <script src="scripts/event.js"></script>
     <?php
     if ($loggedIn) {
-        echo "<script>".file_get_contents("defaults/navbar_loggedIn.js")."</script>";
+        echo '<script src="defaults/navbar_loggedIn.js"></script>';
     }
     if ($isOwner) {
-        echo "<script>".file_get_contents("defaults/manage.js")."</script>";
+        echo '<script src="defaults/manage.js"></script>';
     }
     ?>
 </body>

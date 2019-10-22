@@ -12,8 +12,8 @@ $('document').ready(
     function() {
         
         tabs = M.Tabs.init( $('.tabs')[0]) ;
-        login_dropdown = M.Dropdown.init( $('.dropdown-trigger')[0]) ;
-        collapisble_front = M.Collapsible.init( $('#collapsible_front')[0]) ;
+        collapisble_front = M.Collapsible.init( $('#collapsible_front')[0],{accordion: false} ) ;
+        
         collapsible_tal = M.Collapsible.init( $('#collapsible_tal')[0],{accordion:false});
         date_picker_start =M.Datepicker.init( $('#date_start')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('s','d')}  }) ;
         date_picker_end = M.Datepicker.init( $('#date_end')[0],{format: "dd mmm, yyyy",minDate: new Date(),onClose:()=>{on_close('e','d')} ,onOpen:()=>{on_open('e')} }) ;
@@ -131,7 +131,8 @@ function serialize_data() {
                 "paid":$("#check_paid").prop("checked") ?1:0,
                 "price":$("#price").val(),
                 "tags":serialize_tags(),
-                "description":$("#description_text").val()}
+                "description":$("#description_text").val().replace(/\n/g,"<br>"),
+                "location":$("#location").val().replace(/\n/g,"<br>") }
     return JSON.stringify(data);
 }
 
@@ -220,7 +221,7 @@ $("#create_event").click(function() {
             contentType: "application/json",
             data: d,
             error: (res,status) => { M.toast({html: "Server Error <br> Please Try Again Later"})},
-            success: (res,status) => { window.location = `event.php?event_id=${res}` }
+            success: (res,status) => {} //window.location = `event.php?event_id=${res}` }
         });
     }
 });

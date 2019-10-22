@@ -36,7 +36,7 @@ $('#signup').click((a,b) => {
         $.post('server/api_layer.php',{kind:"signup",username:username.val(),email:email.val(),password:password.val()},(data,status) => { 
             console.log(data)
             if (data=='1') {
-                window.location.href = "user_page.php";
+                window.location.href = "search_page.php";
             }
             else {
                 M.toast({html:'Email Already Exists on this site?' })

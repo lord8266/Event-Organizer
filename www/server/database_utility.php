@@ -73,8 +73,8 @@
       $id = unique_id($conn,"event");
       try {
          $conn->begin_transaction();
-         $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner) VALUES(?,?,?,?,?,?,?,?,?)");
-         $q->bind_param("ssssiisss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"]);
+         $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner,location) VALUES(?,?,?,?,?,?,?,?,?,?)");
+         $q->bind_param("ssssiissss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"],$data->location);
          $q->execute();
          $q = $conn->prepare("INSERT INTO participants(event_id,user_id,access) VALUES(?,?,2)");
          $q->bind_param("ss",$id,$_SESSION["id"]);
@@ -151,6 +151,26 @@
       $conn = connect();
       $q = $conn->query("SELECT events.*,users.username as owner_name from events INNER JOIN users on events.owner=users.id");
       return $q->fetch_all(MYSQLI_ASSOC);
+   }
+
+   function accept_request($event_id,$user_id) {
+      $conn = connect();
+      // print_r
+      $q = $conn->prepare("UPDATE participants set access=1 where event_id=? and user_id=?");
+      $q->bind_param("ss",$event_id,$user_id);
+      $q->execute();
+      $res = $q->affected_rows;
+      return $res;
+   }
+
+   function decline_request($event_id,$user_id) {
+      $conn = connect();
+      // print_r
+      $q = $conn->prepare("DELETE from participants where event_id=? and user_id=?");
+      $q->bind_param("ss",$event_id,$user_id);
+      $q->execute();
+      $res = $q->affected_rows;
+      return $res;
    }
 
 ?>

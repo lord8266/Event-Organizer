@@ -1,7 +1,7 @@
 <?php 
 require_once "server/session_utility.php";
 if (check_cookie()) { 
-	header("Location: user_page.php");
+	header("Location: search_page.php");
 }
 ?>
 <!DOCTYPE html>
@@ -17,18 +17,9 @@ if (check_cookie()) {
 		<title>Document</title>
 	</head>
 	<body>
-		<nav>
-			<div class="nav-wrapper">
-				<a href="#" class="logo">Organizer</a> </li>
-				<ul class="right">
-					<li> <a href="">Events</a></li>
-					<li><a href="">About</a></li>
-					<li>
-						<a href="login.php">Login</a>
-					</li>
-				</ul>
-			</div>
-    	</nav>
+		<?php
+			echo file_get_contents("defaults/navbar_loggedOut.html")
+			?>
 		<div class="container">
 			<div class="row search">
 				<div class="  col s9">

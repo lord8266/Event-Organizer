@@ -13,12 +13,12 @@
     border-radius: 1em;
  }
 
- .img {
-    width: 4em;
- }
-
- #event_preview {
-    margin-top: 10em;
+ img{
+    width: 10em;
+}
+ 
+ .event_preview {
+    padding-top: 5em;
  }
 
  

@@ -107,6 +107,43 @@
             echo "[]";
          }
       }
+      else if ($_POST["kind"]=="accept_request") {
+         $id = $_POST["id"];
+         if(check_cookie()) {
+            $res = access_level($_COOKIE["event_id"],$id);
+            if ($res==0) {
+               if(accept_request($_COOKIE["event_id"],$id)) {
+                  
+               }
+            }
+            
+         }
+         else {
+            http_response_code(403);
+            die();
+         }
+      }
+      else if ($_POST["kind"]=="decline_request") {
+         $id = $_POST["id"];
+         if(check_cookie()) {
+            $res = access_level($_COOKIE["event_id"],$id);
+            if ($res==0) {
+               if(decline_request($_COOKIE["event_id"],$id)) {
+                  
+               }
+            }
+            
+         }
+         else {
+            http_response_code(403);
+            die();
+         }
+      }
+
+      else {
+         http_response_code(503);
+         die();
+      }
       
 }
 
