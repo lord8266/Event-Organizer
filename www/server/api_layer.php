@@ -1,5 +1,6 @@
 <?php 
    require_once 'database_utility.php';
+   require 'file_handle.php';
    require_once 'session_utility.php';
    if ($_SERVER["CONTENT_TYPE"]=="application/json") {
          
@@ -139,6 +140,9 @@
             http_response_code(403);
             die();
          }
+      }
+      else if ($_POST["kind"]=="file_temp") {
+         echo temp_file("aaa");
       }
 
       else {

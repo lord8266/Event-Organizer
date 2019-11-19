@@ -9,7 +9,7 @@
 }
 
 .profile {
-  width: 10em;
+  height: 10em;
 }
 
 .tag {
@@ -31,3 +31,8 @@ body {
 #logout {
     color: rgb(134, 124, 124)
  }
+
+ #map {
+    height: 100%;
+    widows: 100%;
+  }

@@ -26,6 +26,9 @@ if (!$data_user) {
     <?php 
         echo strtr(file_get_contents("defaults/navbar_loggedIn.html"),array('$username' => $data_user["username"]));
     ?>
+    <div id="map">
+        
+    </div>
     <div class="container">
         <div class="row" id="tabs">
             <div class="col s12">
@@ -41,7 +44,7 @@ if (!$data_user) {
                 <div class="row">
                     <div class="col s3">
                         <div style="">
-                            <img class="responsive-img circle profile" id="profile" src="images/default.png">
+                            <img class="profile" id="profile" src="images/default.png">
                         </div>
                     </div>
                 </div>
@@ -59,11 +62,13 @@ if (!$data_user) {
                                 <div class="collapsible-body">
                                     <div class="row">
                                         <div class="col s6 center-align">
-                                            <h5>Choose Image</h5>
+                        
+                                            <form action="" id="upload_form">
+                                                <input class="waves-effect" name="file" type="file" id="upload_file">
+                                            </form> <br>
+                                            <button class="btn waves-effect" id="upload_button">Upload Image</button>
                                         </div>
-                                        <div class="col s6 center-align">
-                                            <h5>Choose Color</h5>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </li>
@@ -102,7 +107,7 @@ if (!$data_user) {
                             <div class="row">
                                 <div class="col s9 input-field">
                                     <i class="material-icons prefix">mode_edit</i>
-                                    <textarea id="location" class="materialize-textarea"></textarea>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -176,6 +181,10 @@ if (!$data_user) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="scripts/create_event.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfu9yWjBG51wwnabmys7w05-VLCccROYU&callback=initMap"
+    async defer>
+    </script>
+
 <?php 
 echo '<script src="defaults/navbar_loggedIn.js"></script>';
 ?>

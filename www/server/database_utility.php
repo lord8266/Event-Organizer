@@ -19,6 +19,12 @@
       return $new_id;
    }
    
+   function delete_id($conn,$id) {
+      $q =$conn->prepare("DELETE from id_store where id=?");
+      $q->bind_param("s",$id);
+      $q->execute();
+   }
+   
    function newuser($conn,$username,$email,$password) {
       $id = unique_id($conn,"user");
       $q= $conn->prepare("INSERT INTO users(id,username,email,password,verified) VALUES(?,?,?,?,0)");

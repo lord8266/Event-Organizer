@@ -26,6 +26,8 @@ $('document').ready(
         price_show()
         $('#check_paid').on('change',price_show)
         $("#description_text").val("")
+        $("#upload_button").click(upload_image)
+        initMap();
     }
 
 );
@@ -211,6 +213,32 @@ function add_tag(e) {
     $('#tags').data('count',c);
     
 }
+
+function upload_image() {
+    if( document.getElementById("upload_file").value) {
+       
+        var formData = new FormData(document.getElementById("upload_form"));
+         $.ajax({
+             url: 'server/file_handle.php',
+             type: 'POST',
+             data: formData,
+             async: true,
+             cache: false,
+             contentType: false,
+             enctype: 'multipart/form-data',
+             processData: false,
+             success: function (response) {
+                M.toast({html: response})
+                $("#profile").attr("src",response)
+             }
+         });
+    }
+    else {
+        M.toast({html: "choose file"})
+    }
+    
+}
+
 $('#add_tag').click(add_tag)
 
 $("#create_event").click(function() {
@@ -226,5 +254,13 @@ $("#create_event").click(function() {
         });
     }
 });
+
+var map;
+function initMap() {
+map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+});
+}
 
 
