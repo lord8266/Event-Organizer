@@ -8,9 +8,7 @@
     font-size: 3em;
  }
  .dropdown-content {
-    width: 10em !important;
-    top: 100% !important;
-    position: relative;
+    position: absolute;
   }
   
   

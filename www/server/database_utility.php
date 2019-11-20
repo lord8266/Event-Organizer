@@ -153,10 +153,20 @@
          return NULL;
       }
    }
-   function all_events() {
+   function all_events($query) {
       $conn = connect();
       $q = $conn->query("SELECT events.*,users.username as owner_name,users.verified from events INNER JOIN users on events.owner=users.id");
-      return $q->fetch_all(MYSQLI_ASSOC);
+      $ret = $q->fetch_all(MYSQLI_ASSOC);
+      $ret2 = array();
+      if ($query!="") {
+         foreach( $ret as $value) {
+            if (preg_match("/$query/",$value['name'])) {
+               array_push($ret2,$value);
+            }
+         }
+         return $ret2;
+      }
+      return $ret;
    }
 
    function accept_request($event_id,$user_id) {

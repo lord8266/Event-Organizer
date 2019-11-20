@@ -34,13 +34,12 @@ $loggedIn = $data_user!=NULL;
    <div class="container">
       <div class="row" id="search">
          <div class="col s10"> 
-            <div class='dropdown-trigger_events' data-target='dropdown_events' >
-            <input type="text"   id="search_text">
-            
+               <div class="search dropdown-trigger_events" data-target='dropdown_events'>
+               <input type="text" class=""  id="search_text" value="<?php echo isset($_GET["query"]) ? $_GET["query"]:"" ?>">
+               
                <ul id='dropdown_events' class='dropdown-content'>
-                  <li><a href="create_event.php">Create Eventaaaaaaaaaaaaaaaaaaaaaaaa</a></li>
                </ul>
-            </div>
+               </div>
          </div>
 
          <div class="col s2"> 
@@ -57,22 +56,27 @@ $loggedIn = $data_user!=NULL;
       </div>
       <div class="row">
          <div class="col s12" id="events">
-            <?php 
-               $res  =all_events();
+            <?php
+               
+               $res  =all_events("");
                foreach($res as $e) {
-                  $format =array('$event_name' => $e["name"],
-                                 '$id' => $e["id"],
-                                 '$event_image' => $e['image_id']=="" ? 'images/default.png':"server/images/".$e['image_id'] ,
-                                 '$owner_id' => $e["owner"],
-                                 '$event_id' => $e["id"]);
-                  if ($e["owner"]==$data_user["id"]) {
-                     $format['$owner_name'] = "You";
+                  $check = isset($_GET["query"]) && preg_match("/${_GET["query"]}/", $e['name']);
+                  if ( $check || !isset($_GET["query"]) ) {
+                     $format =array('$event_name' => $e["name"],
+                                    '$id' => $e["id"],
+                                    '$event_image' => $e['image_id']=="" ? 'images/default.png':"server/images/".$e['image_id'] ,
+                                    '$owner_id' => $e["owner"],
+                                    '$event_id' => $e["id"]);
+                     if ($e["owner"]==$data_user["id"]) {
+                        $format['$owner_name'] = "You";
+                     }
+                     else {
+                        $format['$owner_name'] = $e["owner_name"];
+                     }
+                     echo strtr(file_get_contents("defaults/event_preview.html"),$format);
                   }
-                  else {
-                     $format['$owner_name'] = $e["owner_name"];
-                  }
-                  echo strtr(file_get_contents("defaults/event_preview.html"),$format);
                }
+            
    
 
                

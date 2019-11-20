@@ -1,4 +1,4 @@
-M.Dropdown.init( $('.dropdown-trigger')[0]);
+M.Dropdown.init( $('.dropdown-trigger')[0],{'coverTrigger':false});
 
 $('#logout').click(() => {
     $.post('server/api_layer.php', {

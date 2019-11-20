@@ -27,7 +27,7 @@ $('document').ready(
         $('#check_paid').on('change',price_show)
         $("#description_text").val("")
         $("#upload_button").click(upload_image)
-        // initMap();
+        initMap();
     }
 
 );

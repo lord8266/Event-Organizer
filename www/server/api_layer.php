@@ -100,7 +100,7 @@
          }
       }
       else if ($_POST["kind"]=="all_events") {
-         $res = all_events();
+         $res = all_events($_POST["query"]);
          if ($res) {
             echo json_encode($res);
          }
