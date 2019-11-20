@@ -7,7 +7,7 @@ var login_dropdown;
 var collapisble_front;
 var collapsible_tal;
 var tabs;
-
+var input_image_id;
 $('document').ready(
     function() {
         
@@ -27,7 +27,7 @@ $('document').ready(
         $('#check_paid').on('change',price_show)
         $("#description_text").val("")
         $("#upload_button").click(upload_image)
-        initMap();
+        // initMap();
     }
 
 );
@@ -95,7 +95,7 @@ function on_close(t,f) {
                 M.toast({html:"Invalid End"})
             }
         }
-       
+        
     }
     else if (t=='s_t') {
         s2 = get_time(time_picker_start);
@@ -135,6 +135,12 @@ function serialize_data() {
                 "tags":serialize_tags(),
                 "description":$("#description_text").val().replace(/\n/g,"<br>"),
                 "location":$("#location").val().replace(/\n/g,"<br>") }
+    if ($("#profile").data("image_id")) {
+        data.image_id = $("#profile").data("image_id");
+    }
+    else {
+        data.image_id = "";
+    }
     return JSON.stringify(data);
 }
 
@@ -229,7 +235,10 @@ function upload_image() {
              processData: false,
              success: function (response) {
                 M.toast({html: response})
-                $("#profile").attr("src",response)
+                response = JSON.parse(response)
+                
+                $("#profile").attr("src",response.url)
+                $("#profile").data("image_id",response.id)
              }
          });
     }

@@ -79,8 +79,8 @@
       $id = unique_id($conn,"event");
       try {
          $conn->begin_transaction();
-         $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner,location) VALUES(?,?,?,?,?,?,?,?,?,?)");
-         $q->bind_param("ssssiissss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"],$data->location);
+         $q = $conn->prepare("INSERT INTO events(id,name,start,end,paid,price,tags,description,owner,location,image_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+         $q->bind_param("ssssiisssss",$id,$data->name,$data->start,$data->end,$data->paid,$data->price,$data->tags,$data->description,$_SESSION["id"],$data->location,$data->image_id);
          $q->execute();
          $q = $conn->prepare("INSERT INTO participants(event_id,user_id,access) VALUES(?,?,2)");
          $q->bind_param("ss",$id,$_SESSION["id"]);

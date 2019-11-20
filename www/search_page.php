@@ -33,7 +33,16 @@ $loggedIn = $data_user!=NULL;
    ?>
    <div class="container">
       <div class="row" id="search">
-         <div class="col s10"> <input type="text" id="search_text"></div>
+         <div class="col s10"> 
+            <div class='dropdown-trigger_events' data-target='dropdown_events' >
+            <input type="text"   id="search_text">
+            
+               <ul id='dropdown_events' class='dropdown-content'>
+                  <li><a href="create_event.php">Create Eventaaaaaaaaaaaaaaaaaaaaaaaa</a></li>
+               </ul>
+            </div>
+         </div>
+
          <div class="col s2"> 
             <a class="waves-effect waves-light btn" id="search_button"><i class="material-icons left">search</i>Search Events</a>
          </div>
@@ -53,7 +62,7 @@ $loggedIn = $data_user!=NULL;
                foreach($res as $e) {
                   $format =array('$event_name' => $e["name"],
                                  '$id' => $e["id"],
-                                 '$event_image' => 'images/default.png' ,
+                                 '$event_image' => $e['image_id']=="" ? 'images/default.png':"server/images/".$e['image_id'] ,
                                  '$owner_id' => $e["owner"],
                                  '$event_id' => $e["id"]);
                   if ($e["owner"]==$data_user["id"]) {

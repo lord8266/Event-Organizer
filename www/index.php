@@ -19,7 +19,7 @@ if (check_cookie()) {
 	<body>
 		<?php
 			echo file_get_contents("defaults/navbar_loggedOut.html")
-			?>
+		?>
 		<div class="container">
 			<div class="row search">
 				<div class="  col s9">

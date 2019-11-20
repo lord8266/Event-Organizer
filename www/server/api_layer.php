@@ -1,6 +1,5 @@
 <?php 
    require_once 'database_utility.php';
-   require 'file_handle.php';
    require_once 'session_utility.php';
    if ($_SERVER["CONTENT_TYPE"]=="application/json") {
          

@@ -99,6 +99,9 @@ $(document).ready(
                 else {
                     $("#location").html(data["location"]);
                 }
+                if(data['image_id']!="") {
+                    $("#event_image").attr('src',"server/images/"+data["image_id"]);
+                }
             
             if (data["paid"]) {
                 $('#price')

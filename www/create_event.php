@@ -26,9 +26,7 @@ if (!$data_user) {
     <?php 
         echo strtr(file_get_contents("defaults/navbar_loggedIn.html"),array('$username' => $data_user["username"]));
     ?>
-    <div id="map">
-        
-    </div>
+    
     <div class="container">
         <div class="row" id="tabs">
             <div class="col s12">
@@ -105,9 +103,9 @@ if (!$data_user) {
                         <div class="collapsible-header"> <i class="material-icons">add_location</i> Location</div>
                         <div class="collapsible-body">
                             <div class="row">
-                                <div class="col s9 input-field">
-                                    <i class="material-icons prefix">mode_edit</i>
+                                <div class="col s9" id="map">
                                     
+                                    <textarea name="" id="location" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -181,9 +179,9 @@ if (!$data_user) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="scripts/create_event.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfu9yWjBG51wwnabmys7w05-VLCccROYU&callback=initMap"
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHi4VwG2PbROcaOVYl1xS_kII5BsULIzo&callback=initMap"
     async defer>
-    </script>
+    </script> -->
 
 <?php 
 echo '<script src="defaults/navbar_loggedIn.js"></script>';

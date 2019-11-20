@@ -10,7 +10,8 @@ function chip_gen(s) {
       });
 }
 
- 
+
+var all_events;
 
 function get_events() {
     console.log("here")
@@ -18,6 +19,7 @@ function get_events() {
         kind: "all_events"
     },(res,status)=> {
         res  = JSON.parse(res)
+        all_events = res;
         res.forEach(e => {
             let el = $(`#${e["id"]}_event`)
             console.log(`#${e["id"]}_event`)
@@ -31,11 +33,26 @@ function get_events() {
                 el.find("#verified").html('<span class="green-text"><i class="material-icons icon">check_circle</i>Verified</span>')
             else
                 el.find("#verified").html('<span class="blue-text"><i class="material-icons icon">info_outline</i>Not Verified</span>')
-
+            
             });
     });
+    
 }
-
+var all_events_dropdown;
 $(document).ready(function(){
     get_events();
+    document.getElementById("search_text").onkeydown = function (e) {
+        if (e.key=="Enter") {
+            all_events_dropdown.open()
+        }
+        else {
+
+        }
+    }
+    document.getElementById("search_text").onfocusout = function(e) {
+        all_events_dropdown.close()
+    }
+    all_events_dropdown = M.Dropdown.init( $('.dropdown-trigger_events')[0]);
+    
+    $("#search_button").on("click",function(e) {console.log(e)})
 })
