@@ -179,9 +179,7 @@ if (!$data_user) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="scripts/create_event.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHi4VwG2PbROcaOVYl1xS_kII5BsULIzo&callback=initMap"
-    async defer>
-    </script>
+
 
 <?php 
 echo '<script src="defaults/navbar_loggedIn.js"></script>';
